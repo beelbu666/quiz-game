@@ -2,103 +2,123 @@
     "response_code": 0,
     "results": [
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "Rabbits can see what&#039;s behind themselves without turning their heads.",
-            "correct_answer": "True",
+            "question": "By definition, where does an abyssopelagic animal live?",
+            "correct_answer": "At the bottom of the ocean",
             "incorrect_answers": [
-                "False"
+                "In the desert",
+                "On top of a mountain",
+                "Inside a tree"
             ]
         },
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "A bear does NOT defecate during hibernation. ",
-            "correct_answer": "True",
+            "question": "What is the collective noun for a group of crows?",
+            "correct_answer": "Murder",
             "incorrect_answers": [
-                "False"
+                "Pack",
+                "Gaggle",
+                "Herd"
             ]
         },
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "Zebras are white with black stripes.",
-            "correct_answer": "False",
+            "question": "What colour is the female blackbird?",
+            "correct_answer": "Brown",
             "incorrect_answers": [
-                "True"
+                "Black",
+                "White",
+                "Yellow"
             ]
         },
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "Rabbits are rodents.",
-            "correct_answer": "False",
+            "question": "Snakes and lizards are known to flick their tongue, this behavior is to?",
+            "correct_answer": "Capture scent particles",
             "incorrect_answers": [
-                "True"
+                "Taste the sweet air",
+                "Threaten other species",
+                "Attract female mates"
             ]
         },
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "A caterpillar has more muscles than humans do.",
-            "correct_answer": "True",
+            "question": "What is the name of a rabbit&#039;s abode?",
+            "correct_answer": "Burrow",
             "incorrect_answers": [
-                "False"
+                "Nest",
+                "Den",
+                "Dray"
             ]
         },
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "Rabbits are carnivores.",
-            "correct_answer": "False",
+            "question": "What is Grumpy Cat&#039;s real name?",
+            "correct_answer": "Tardar Sauce",
             "incorrect_answers": [
-                "True"
+                "Sauce",
+                "Minnie",
+                "Broccoli"
             ]
         },
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "The internet browser Firefox is named after the Red Panda.",
-            "correct_answer": "True",
+            "question": "What do you call a baby bat?",
+            "correct_answer": "Pup",
             "incorrect_answers": [
-                "False"
+                "Cub",
+                "Chick",
+                "Kid"
             ]
         },
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "A slug&rsquo;s blood is green.",
-            "correct_answer": "True",
+            "question": "The K\u0101k\u0101p\u014d is a large, flightless, nocturnal parrot native to which country?",
+            "correct_answer": "New Zealand",
             "incorrect_answers": [
-                "False"
+                "South Africa",
+                "Australia",
+                "Madagascar"
             ]
         },
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "Kangaroos keep food in their pouches next to their children.",
-            "correct_answer": "False",
+            "question": "Hippocampus is the Latin name for which marine creature?",
+            "correct_answer": "Seahorse",
             "incorrect_answers": [
-                "True"
+                "Dolphin",
+                "Whale",
+                "Octopus"
             ]
         },
         {
-            "type": "boolean",
+            "type": "multiple",
             "difficulty": "easy",
             "category": "Animals",
-            "question": "Cats have whiskers under their legs.",
-            "correct_answer": "True",
+            "question": "How many legs do butterflies have?",
+            "correct_answer": "6",
             "incorrect_answers": [
-                "False"
+                "2",
+                "4",
+                "0"
             ]
         }
     ]

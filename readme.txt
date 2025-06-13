@@ -1,4 +1,3 @@
-11th june, 
-i just learned about html, request 
-i just made a simple true false quiz game 
-Later, i will also add the multiple choice quiz here.
+A quiz game with two modes.
+1. True,False
+2. Multiple choice
