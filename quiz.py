@@ -84,7 +84,7 @@ def store_score(type, difficulty, category, score, name):
 
     try:
         with open("score.json", "w") as f:
-            json.dump(score_list, f)
+            json.dump(score_list, f, indent=4)
     except IOError as e:
         print(f"Error writing to score file: {e}")
         return
