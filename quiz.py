@@ -13,8 +13,6 @@ def get_quizTF():
         response = req.get(url1)
         response.raise_for_status()  # Check for HTTP errors
         data = response.json()
-        with open("quiz.json", "w") as f:
-            json.dump(data, f, indent=4)
         if data["response_code"] == 0:
             return data["results"]
         else:
@@ -31,8 +29,6 @@ def get_quiz():
         response = req.get(url2)
         response.raise_for_status()  # Check for HTTP errors
         data = response.json()
-        with open("quiz.json", "w") as f:
-            json.dump(data, f, indent=4)
         if data["response_code"] == 0:
             return data["results"]
         else:
@@ -56,9 +52,13 @@ def format_answer(question):
 
 def get_score():
     try:
-        with open("score.txt", "r") as f:
-            scores = f.readlines()
-        return [line.strip() for line in scores]
+        with open("score.json", "r") as f:
+            scores = json.load(f)
+            sorted_scores = sorted(scores, key=lambda x: x["score"], reverse=True)
+            scores = sorted_scores[:10]  # Get top 10 scores
+            print("🏆 Scoreboard:")
+            for idx, score in enumerate(scores, start=1):
+                print(f"{idx}. {score['name']}: {score['score']}")
     except FileNotFoundError:
         print("No previous scores found.")
         return []
@@ -67,13 +67,27 @@ def get_score():
         return []
 
 
-def store_score(score, name):
+def store_score(type, difficulty, category, score, name):
+    score_data = {
+        "name": name,
+        "type": type,
+        "difficulty": difficulty,
+        "category": category,
+        "score": score,
+    }
     try:
-        with open("score.txt", "a") as f:
-            f.write(f"{name}: {score}\n")
+        with open("score.json", "r") as f:
+            score_list = json.load(f)
     except FileNotFoundError:
-        with open("score.txt", "w") as f:
-            f.write(f"{name}: {score}\n")
+        score_list = []
+    score_list.append(score_data)
+
+    try:
+        with open("score.json", "w") as f:
+            json.dump(score_list, f)
+    except IOError as e:
+        print(f"Error writing to score file: {e}")
+        return
 
 
 def get_name():
@@ -86,28 +100,30 @@ def get_name():
 
 def main():
     print("\n")
-    print("Welcome to the Quiz Game!")    
+    print("🎉 Welcome to the Quiz Game!")
     print("\nChoose what to do:")
-    print("1. True/False Quiz")
-    print("2. Multiple Choice Quiz")
-    print("3. Scoreboard")
-    print("4. Exit")
+    print("1. 🤔 Play True/False Quiz")
+    print("2. 🧠 Play Multiple Choice Quiz")
+    print("3. 📊 View Scoreboard")
+    print("4. 🚪 Exit")
+
     while True:
-        choice = input("\nEnter your choice (1\\2\\3\\4): ").strip()
+        choice = input("\nEnter your choice (1/2/3/4): ").strip()
         if choice in ["1", "2", "3", "4"]:
             break
-        print("Invalid input. Please enter 1 or 2.")
+        print("Invalid input. Please enter a valid option.")
 
     score = 0
     numofquestion = 0
 
     if choice == "1":
         print("Fetching True/False quiz questions...")
-        get_quizTF()
+        questions = get_quizTF()
         print("Quiz questions fetched successfully!\n")
-        with open("quiz.json", "r") as f:
-            data = json.load(f)
-        questions = data.get("results", [])
+        if not questions:
+            print("No questions available. Please try again later.")
+            return
+
         name = get_name()
         for i, question in enumerate(questions, start=1):
             formatted_question = format_question(question)
@@ -116,7 +132,7 @@ def main():
                 print("\n")
                 print(f"Q{i}: {formatted_question}")
                 print("true or false?")
-                answer = input("(T\\F): ").strip().upper()
+                answer = input("(T/F): ").strip().upper()
                 if answer not in ["T", "F"]:
                     print("Invalid input. Please enter 'T' for True or 'F' for False.")
                 if answer in ["T", "F"]:
@@ -131,14 +147,17 @@ def main():
                 print("Incorrect.")
 
             numofquestion = i
-        store_score(score, name)
+        type = "T/F"
+        difficulty = "Easy"
+        category = "Animal"
+        store_score(type, difficulty, category, score, name)
     elif choice == "2":
         print("Fetching Multiple Choice quiz questions...")
-        get_quiz()
+        questions = get_quiz()
+        if not questions:
+            print("No questions available. Please try again later.")
+            return
         print("Quiz questions fetched successfully!\n")
-        with open("quiz.json", "r") as f:
-            data = json.load(f)
-        questions = data.get("results", [])
         name = get_name()
         for i, question in enumerate(questions, start=1):
             formatted_question = format_question(question)
@@ -152,7 +171,7 @@ def main():
                 print(f"Q{i}: {formatted_question}")
                 for idx, option in enumerate(formatted_choices, start=1):
                     print(f"{idx}. {option}")
-                answer = input("Choose 1\\2\\3\\4: ").strip().upper()
+                answer = input("Choose 1/2/3/4: ").strip().upper()
                 if answer not in ["1", "2", "3", "4"]:
                     print("Invalid input. Please enter a valid choice")
                 if answer in ["1", "2", "3", "4"]:
@@ -165,33 +184,32 @@ def main():
                 print(f"Wrong! The correct answer was: {formatted_correctanswers}")
 
             numofquestion = i
-        store_score(score, name)
+        type = "MCQ"
+        difficulty = "Easy"
+        category = "Animal"
+        store_score(type, difficulty, category, score, name)
     elif choice == "3":
-        print("\nScoreboard:")
-        scores = get_score()
-        for x in scores:
-            print(x)
+        get_score()
         return
     elif choice == "4":
         print("Exiting the quiz game. Tata!")
         return
-    
-    
 
     if score == 10:
-        print("\nwooooooooo! You got a perfect score of 10/10!")
-        print("You are a genius!")
-    elif 10>score >= 6:
-        print(f"\nGreat job! You scored {score} out of {numofquestion}.")
-        print("Now, You are a quiz master!")
-    elif 6>score >= 4:
-        print(f"\nGood effort! You scored {score} out of {numofquestion}.")
-        print("Try again!.")
-    elif 4>score:
-        print(f"\nYou scored {score} out of {numofquestion}.")
-        print("Congrats! You are considered dumb by me!")
-    print("\nThanks for playing the quiz game!")
-    
+        print("\n🎉 Woooooooo! You got a perfect score of 10/10! 🧠✨")
+        print("You are a genius! 👑😎")
+    elif 10 > score >= 6:
+        print(f"\n👏 Great job! You scored {score} out of {numofquestion}. 🏅")
+        print("Now, You are a quiz master! 🧠💡")
+    elif 6 > score >= 4:
+        print(f"\n👍 Good effort! You scored {score} out of {numofquestion}. 🤓")
+        print("Try again! 🌀📚")
+    elif 4 > score:
+        print(f"\nYou scored {score} out of {numofquestion}. 🤦‍♂️")
+        print("Congrats! You are considered dumb by me! 🐢💩")
+
+    print("\n🎮 Thanks for playing the quiz game! 🥳")
+
 
 if __name__ == "__main__":
     try:
