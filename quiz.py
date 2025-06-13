@@ -54,15 +54,47 @@ def format_answer(question):
     return html.unescape(question["correct_answer"])
 
 
+def get_score():
+    try:
+        with open("score.txt", "r") as f:
+            scores = f.readlines()
+        return [line.strip() for line in scores]
+    except FileNotFoundError:
+        print("No previous scores found.")
+        return []
+    except IOError as e:
+        print(f"Error reading score file: {e}")
+        return []
+
+
+def store_score(score, name):
+    try:
+        with open("score.txt", "a") as f:
+            f.write(f"{name}: {score}\n")
+    except FileNotFoundError:
+        with open("score.txt", "w") as f:
+            f.write(f"{name}: {score}\n")
+
+
+def get_name():
+    while True:
+        name = input("Enter your name: ").strip()
+        if name:
+            return name
+        print("Name cannot be empty. Please enter a valid name.")
+
+
 def main():
     print("\n")
-    print("Welcome to the Quiz Game!")
-    print("Choose which quiz you want to play:")
+    print("Welcome to the Quiz Game!")    
+    print("\nChoose what to do:")
     print("1. True/False Quiz")
     print("2. Multiple Choice Quiz")
+    print("3. Scoreboard")
+    print("4. Exit")
     while True:
-        choice = input("\nEnter your choice (1 or 2): ").strip()
-        if choice in ["1", "2"]:
+        choice = input("\nEnter your choice (1\\2\\3\\4): ").strip()
+        if choice in ["1", "2", "3", "4"]:
             break
         print("Invalid input. Please enter 1 or 2.")
 
@@ -76,6 +108,7 @@ def main():
         with open("quiz.json", "r") as f:
             data = json.load(f)
         questions = data.get("results", [])
+        name = get_name()
         for i, question in enumerate(questions, start=1):
             formatted_question = format_question(question)
             formatted_answer = format_answer(question)
@@ -98,7 +131,7 @@ def main():
                 print("Incorrect.")
 
             numofquestion = i
-
+        store_score(score, name)
     elif choice == "2":
         print("Fetching Multiple Choice quiz questions...")
         get_quiz()
@@ -106,6 +139,7 @@ def main():
         with open("quiz.json", "r") as f:
             data = json.load(f)
         questions = data.get("results", [])
+        name = get_name()
         for i, question in enumerate(questions, start=1):
             formatted_question = format_question(question)
             formatted_choices = [html.unescape(question["correct_answer"])] + [
@@ -131,6 +165,18 @@ def main():
                 print(f"Wrong! The correct answer was: {formatted_correctanswers}")
 
             numofquestion = i
+        store_score(score, name)
+    elif choice == "3":
+        print("\nScoreboard:")
+        scores = get_score()
+        for x in scores:
+            print(x)
+        return
+    elif choice == "4":
+        print("Exiting the quiz game. Tata!")
+        return
+    
+    
 
     if score == 10:
         print("\nwooooooooo! You got a perfect score of 10/10!")
