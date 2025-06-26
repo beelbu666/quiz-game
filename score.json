@@ -1,1 +1,44 @@
-[{"name": "beelz", "type": "T/F", "difficulty": "Easy", "category": "Animal", "score": 10}, {"name": "alien", "type": "T/F", "difficulty": "Easy", "category": "Animal", "score": 8}, {"name": "try", "type": "MCQ", "difficulty": "Easy", "category": "Animal", "score": 3}, {"name": "try2", "type": "T/F", "difficulty": "Easy", "category": "Animal", "score": 7}, {"name": "dumb", "type": "T/F", "difficulty": "Easy", "category": "Animal", "score": 7}]
+[
+    {
+        "name": "beelz",
+        "type": "T/F",
+        "difficulty": "Easy",
+        "category": "Animal",
+        "score": 10
+    },
+    {
+        "name": "alien",
+        "type": "T/F",
+        "difficulty": "Easy",
+        "category": "Animal",
+        "score": 8
+    },
+    {
+        "name": "try",
+        "type": "MCQ",
+        "difficulty": "Easy",
+        "category": "Animal",
+        "score": 3
+    },
+    {
+        "name": "try2",
+        "type": "T/F",
+        "difficulty": "Easy",
+        "category": "Animal",
+        "score": 7
+    },
+    {
+        "name": "dumb",
+        "type": "T/F",
+        "difficulty": "Easy",
+        "category": "Animal",
+        "score": 7
+    },
+    {
+        "name": "prince",
+        "type": "MCQ",
+        "difficulty": "Easy",
+        "category": "Animal",
+        "score": 10
+    }
+]
